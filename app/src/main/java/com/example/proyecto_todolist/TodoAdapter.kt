@@ -25,6 +25,7 @@ class TodoAdapter(var tasks: List<String>, var layout: Int, var itemListener: On
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         holder.bind(tasks.get(position), itemListener)
+
     }
 
     class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">ToDoList Proyect</string>
+
+    <string name="login">Log in</string>
+    <string name="welcome">To Do List</string>
+    <string name="txtUser">Ingrese su usario :</string>
+    <string name="editUser">Usuario</string>
+    <string name="txtPassword">Ingrese su contraseña :</string>
+    <string name="editPassword">Contraseña</string>
+    <string name="showPassword">Mostrar Contraseña</string>
+    <string name="btnSave">GUARDAR</string>
+
 </resources>

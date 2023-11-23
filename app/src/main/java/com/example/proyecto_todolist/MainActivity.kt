@@ -2,6 +2,7 @@ package com.example.proyecto_todolist
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
@@ -26,20 +27,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         tasks = getAllTasks()
+        editTextTask = findViewById(R.id.editTextTask)
         btnAddTask = findViewById(R.id.btnAddTask)
         recyclerView = findViewById(R.id.recyclerView)
         layoutManager = LinearLayoutManager(this)
         todoAdapter =
-            TodoAdapter(tasks, R.layout.item_todo, object : TodoAdapter.OnItemClickListener{
+            TodoAdapter(tasks, R.layout.item_todo, object : TodoAdapter.OnItemClickListener {
                 override fun onItemclick(name: String?, position: Int) {
-                    //Toast.makeText(this@MainActivity, name + " -"+ position, Toast.LENGTH_LONG).show()
                     deleteTask(position)
                 }
             })
         recyclerView.setLayoutManager(layoutManager)
         recyclerView.setAdapter(todoAdapter)
-
-
 
         btnAddTask.setOnClickListener {
             val newTask = editTextTask.text.toString()
@@ -65,13 +64,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        getMenuInflater().inflate(R.menu.menu_add, menu)
+        //getMenuInflater().inflate(R.menu.menu_add, menu)
+        val inflater:MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu_add, menu)
+
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.add_name -> addTask(0)
+            R.id.addTask -> {
+                addTask(0)
+            }
+            R.id.removeSelected -> {
+                deleteTasksSelected()
+                true
+            }
+            R.id.removeAll -> {
+                deleteAll()
+                true
+            }
+            R.id.exit -> {
+                exit()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -86,6 +102,19 @@ class MainActivity : AppCompatActivity() {
         tasks.removeAt(posicion)
         todoAdapter.notifyItemRemoved(posicion)
     }
+
+    private fun deleteTasksSelected() {
+    }
+
+    private fun deleteAll() {
+        tasks.clear()
+        todoAdapter.notifyDataSetChanged()
+    }
+
+    private fun exit() {
+        finish()
+    }
+
 
 
 }
