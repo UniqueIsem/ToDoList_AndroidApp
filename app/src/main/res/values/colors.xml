@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores primarios -->
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- Colores de texto -->
+    <color name="colorTextPrimary">#212121</color>
+    <color name="colorTextSecondary">#727272</color>
+
+    <!-- Colores de fondo -->
+    <color name="colorBackground">#FFFFFF</color>
+
+    <!-- Otros colores -->
+    <color name="colorDivider">#B6B6B6</color>
+    <color name="colorButton">#4CAF50</color>
+</resources>
