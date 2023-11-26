@@ -10,8 +10,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.proyecto_todolist.R
-import com.example.proyecto_todolist.TodoItem
+import android.app.AlertDialog
+import android.app.DatePickerDialog
+import java.util.Calendar
+import android.app.TimePickerDialog
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private lateinit var tasks: MutableList<String>
@@ -26,13 +30,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        showMessageInfo()
+
         tasks = getAllTasks()
         editTextTask = findViewById(R.id.editTextTask)
         btnAddTask = findViewById(R.id.btnAddTask)
         recyclerView = findViewById(R.id.recyclerView)
         layoutManager = LinearLayoutManager(this)
         todoAdapter =
-            TodoAdapter(tasks, R.layout.item_todo, object : TodoAdapter.OnItemClickListener {
+            TodoAdapter(tasks, R.layout.item_todo,object : TodoAdapter.OnItemClickListener {
                 override fun onItemclick(name: String?, position: Int) {
                     deleteTask(position)
                 }
@@ -41,16 +47,26 @@ class MainActivity : AppCompatActivity() {
         recyclerView.setAdapter(todoAdapter)
 
         btnAddTask.setOnClickListener {
-            val newTask = editTextTask.text.toString()
-            if (newTask.isNotEmpty()) {
-                addTask(0)
-                todoAdapter.notifyDataSetChanged()
-                editTextTask.text.clear()
+            val editText = editTextTask.text.toString()
+            if (editText.isNotEmpty()) {
+                showDateTimePicker()
             } else {
-                Toast.makeText(this, "Ingrese un task...", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Ingrese un task...", Toast.LENGTH_SHORT).show()
             }
         }
 
+
+    }
+
+    private fun showMessageInfo() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("INFORMACIÓN")
+        builder.setMessage("Podrás agregar tareas sencillas escribiéndolas en la barra de texto y presionando el botón de agregar en la barra de menú. Si deseas agregar tareas con un tiempo o fecha específicos, selecciona el botón \"Add Big Task\".")
+        builder.setPositiveButton("Aceptar") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.show()
     }
 
     private fun getAllTasks(): MutableList<String> {
@@ -64,17 +80,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        //getMenuInflater().inflate(R.menu.menu_add, menu)
         val inflater:MenuInflater = menuInflater
         inflater.inflate(R.menu.menu_add, menu)
-
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.addTask -> {
-                addTask(0)
+                val newTask = editTextTask.text.toString()
+                val vacio = ""
+                //Agregamos un task sin fecha ni hora
+                addTask(0, newTask, vacio)
+                true
             }
             R.id.removeSelected -> {
                 deleteTasksSelected()
@@ -92,18 +110,70 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun addTask(posicion: Int): Boolean {
-        tasks.add(posicion, "New name "+ (++counter))
-        todoAdapter.notifyItemInserted(posicion)
-        layoutManager.scrollToPosition(posicion)
+    private fun showDateTimePicker() {
+        val calendar = Calendar.getInstance()
+
+        // Configuracion DatePickerDialog
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, year, month, dayOfMonth ->
+                calendar.set(year, month, dayOfMonth)
+
+                // Configuracion TimePickerDialog
+                val timePickerDialog = TimePickerDialog(
+                    this,
+                    { _, hourOfDay, minute ->
+                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                        calendar.set(Calendar.MINUTE, minute)
+
+                        // Formatear la fecha y hora seleccionadas
+                        val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+                        val selectedDateTime = dateFormat.format(calendar.time)
+
+                        // Agrega la tarea al RecyclerView con la fecha y hora seleccionadas
+                        val newTask = editTextTask.text.toString()
+                        val time = selectedDateTime.toString()
+                        addTask(0, newTask, time)
+                        todoAdapter.notifyDataSetChanged()
+                    },
+                    calendar.get(Calendar.HOUR_OF_DAY),
+                    calendar.get(Calendar.MINUTE),
+                    true
+                )
+
+                // Mostrar TimePickerDialog
+                timePickerDialog.show()
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+
+        // Mostrar DatePickerDialog
+        datePickerDialog.show()
+    }
+
+    private fun addTask(posicion: Int, newTask: String, dateTime: String): Boolean {
+        if (newTask.isNotEmpty()) {
+            tasks.add(posicion, newTask + ", " + dateTime)
+            todoAdapter.notifyItemInserted(posicion)
+            layoutManager.scrollToPosition(posicion)
+            editTextTask.text.clear()
+        } else {
+            Toast.makeText(this, "Ingrese un task...", Toast.LENGTH_SHORT).show()
+        }
         return true
     }
+
     private fun deleteTask(posicion: Int) {
         tasks.removeAt(posicion)
         todoAdapter.notifyItemRemoved(posicion)
     }
 
     private fun deleteTasksSelected() {
+        val selectedTasks = todoAdapter.getSelectedItems()
+        tasks.removeAll(selectedTasks)
+        todoAdapter.notifyDataSetChanged()
     }
 
     private fun deleteAll() {
@@ -112,9 +182,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun exit() {
-        finish()
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("EXIT")
+        builder.setMessage("¿Seguro que quieres salir de la sesión?")
+        builder.setPositiveButton("Sí") { dialog, which ->
+            finish()
+            dialog.dismiss()
+        }
+        builder.setNegativeButton("No") { dialog, which ->
+            dialog.dismiss()
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.show()
     }
 
-
+data class Task(val name: String, val dateTime: String)
 
 }

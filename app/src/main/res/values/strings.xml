@@ -9,5 +9,10 @@
     <string name="editPassword">Contraseña</string>
     <string name="showPassword">Mostrar Contraseña</string>
     <string name="btnSave">GUARDAR</string>
+    <string name="btnBigTask">Add Big Task</string>
+    <string name="txtInfo">
+        Podras agregar tareas sencillas escribiendola y presionando el boton de agrear en la barra de menu,
+        si deseas agregar tareas con un teimpo o fecha en especifico seleccione el boton "Add Big Task"
+    </string>
 
 </resources>
