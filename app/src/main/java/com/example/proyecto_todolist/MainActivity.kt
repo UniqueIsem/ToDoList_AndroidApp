@@ -72,9 +72,7 @@ class MainActivity : AppCompatActivity() {
     private fun getAllTasks(): MutableList<String> {
         return object : ArrayList<String>() {
             init {
-                add("Barrer")
-                add("Tender la cama")
-                add("Bañarse")
+                add("Este es un ejemplo de un task...")
             }
         }
     }
@@ -92,6 +90,10 @@ class MainActivity : AppCompatActivity() {
                 val vacio = ""
                 //Agregamos un task sin fecha ni hora
                 addTask(0, newTask, vacio)
+                true
+            }
+            R.id.info -> {
+                showMessageInfo()
                 true
             }
             R.id.removeSelected -> {
@@ -155,7 +157,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun addTask(posicion: Int, newTask: String, dateTime: String): Boolean {
         if (newTask.isNotEmpty()) {
-            tasks.add(posicion, newTask + ", " + dateTime)
+            tasks.add(posicion, newTask + "       " + dateTime)
             todoAdapter.notifyItemInserted(posicion)
             layoutManager.scrollToPosition(posicion)
             editTextTask.text.clear()

@@ -1,34 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity"
+    android:background="@drawable/fondo_home">
 
-    <EditText
-        android:id="@+id/editTextTask"
-        android:layout_width="110pt"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:imeOptions="actionDone"
-        android:inputType="textPersonName"
-        android:hint="Ingrese una nueva tarea"/>
-
-    <Button
-        android:id="@+id/btnAddTask"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:width="50pt"
-        android:text="@string/btnBigTask" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/btnAddTask"
-        android:layout_marginTop="18dp"
-        android:padding="16dp" />
-</RelativeLayout>
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/editTextTask"
+            android:layout_width="110pt"
+            android:layout_height="22pt"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/black"
+            android:textColorHint="@color/white"
+            android:hint="  Ingrese una nueva tarea"
+            android:imeOptions="actionDone" />
+
+        <Button
+            android:id="@+id/btnAddTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorTextPrimary"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:width="50pt"
+            android:textColor="@color/white"
+            android:text="@string/btnBigTask" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/btnAddTask"
+            android:layout_marginTop="18dp"
+            android:padding="16dp" />
+    </RelativeLayout>
+
+</FrameLayout>

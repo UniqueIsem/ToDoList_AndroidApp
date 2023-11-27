@@ -5,7 +5,13 @@
     <item
         android:id="@+id/addTask"
         android:icon="@android:drawable/ic_menu_add"
-        android:title="Remove Selected"
+        android:title="addTask"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/info"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="info"
         app:showAsAction="ifRoom"
         />
     <item
