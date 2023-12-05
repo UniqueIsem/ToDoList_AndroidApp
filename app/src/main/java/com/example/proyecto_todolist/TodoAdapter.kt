@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -58,6 +59,7 @@ class TodoAdapter(
             checkBox.isChecked = adapter.selectedTasks.contains(task)
             textView.text = task
             setImportanceBackground(task)
+            setImportanceImage(task)
 
             itemView.setOnClickListener {
                 itemListener.onItemclick(task, absoluteAdapterPosition)
@@ -76,6 +78,16 @@ class TodoAdapter(
                 "Medium" -> itemView.setBackgroundResource(R.color.yellow)
                 "Low" -> itemView.setBackgroundResource(R.color.green)
                 else -> itemView.setBackgroundResource(R.color.black)
+            }
+        }
+        private fun setImportanceImage(task: String) {
+            val importance = getImportance(task)
+            val imageView: ImageView = itemView.findViewById(R.id.imageView)
+
+            when (importance) {
+                "High" -> imageView.setImageResource(R.drawable.high)
+                "Medium" -> imageView.setImageResource(R.drawable.medium)
+                "Low" -> imageView.setImageResource(R.drawable.low)
             }
         }
 
