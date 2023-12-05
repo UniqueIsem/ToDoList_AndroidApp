@@ -15,4 +15,6 @@
         si deseas agregar tareas con un teimpo o fecha en especifico seleccione el boton "Add Big Task"
     </string>
 
+    <string name="priority_prompt">Select Priority</string>
+
 </resources>

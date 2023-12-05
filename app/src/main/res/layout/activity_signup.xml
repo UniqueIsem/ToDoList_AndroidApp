@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
     android:background="@drawable/fondo_usuario">
 
     <LinearLayout
@@ -24,7 +23,7 @@
             android:background="@color/black"
             android:fontFamily="monospace"
             android:padding="10dp"
-            android:text="@string/login"
+            android:text="Sign Up"
             android:textColor="@color/white"
             android:textSize="35sp" />
 
@@ -47,13 +46,12 @@
             android:textColorHint="@color/colorTextSecondary" />
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/colorTextPrimary"
-            android:onClick="login"
-            android:text="Iniciar Sesion"
+            android:text="Registrarse"
             android:textSize="17sp"
             android:textColor="@color/white" />
 

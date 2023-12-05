@@ -17,7 +17,7 @@ class ActivityHome : AppCompatActivity() {
         when (view.id) {
             R.id.cardSignup -> {
                 // Handle click for option 1
-                startActivity(Intent(this, ActivityLogin::class.java))
+                startActivity(Intent(this, ActivitySignup::class.java))
             }
             R.id.cardLogin -> {
                 // Handle click for option 2

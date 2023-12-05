@@ -7,44 +7,125 @@
     tools:context=".MainActivity"
     android:background="@drawable/fondo_home">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <EditText
-            android:id="@+id/editTextTask"
-            android:layout_width="110pt"
-            android:layout_height="22pt"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@color/black"
-            android:textColorHint="@color/white"
-            android:hint="  Ingrese una nueva tarea"
-            android:imeOptions="actionDone" />
-
-        <Button
-            android:id="@+id/btnAddTask"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorTextPrimary"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:width="50pt"
-            android:textColor="@color/white"
-            android:text="@string/btnBigTask" />
+            android:orientation="horizontal">
 
+            <!-- EditText para ingresar una nueva tarea -->
+            <EditText
+                android:id="@+id/editTextTask"
+                android:layout_width="110pt"
+                android:layout_height="22pt"
+                android:background="@color/black"
+                android:textColorHint="@color/white"
+                android:hint="  Ingrese una nueva tarea"
+                android:imeOptions="actionDone" />
+
+            <Button
+                android:id="@+id/btnAddTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorTextPrimary"
+                android:layout_alignParentEnd="true"
+                android:width="50pt"
+                android:textColor="@color/white"
+                android:text="@string/btnBigTask" />
+
+        </LinearLayout>
+
+        <!-- TextView para mostrar el valor de importancia de la tarea -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/borde_redondeado">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Valor de importancia de la tarea"
+                    android:textColor="@color/white"
+                    android:textSize="23sp"
+                    android:padding="8dp"
+                    android:gravity="center"/>
+
+                <RadioGroup
+                    android:id="@+id/statusRadioGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="3dp"
+                    android:layout_gravity="center">
+
+                    <RadioButton
+                        android:id="@+id/radioHigh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="High"
+                        android:textSize="18sp"
+                        android:layout_marginEnd="5dp"
+                        android:textColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/radioMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Medium"
+                        android:textSize="18sp"
+                        android:layout_marginEnd="5dp"
+                        android:textColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/radioLow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Low"
+                        android:textSize="18sp"
+                        android:layout_marginEnd="5dp"
+                        android:textColor="@color/white" />
+                </RadioGroup>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <!-- Spinner para seleccionar la prioridad de la tarea -->
+        <RelativeLayout
+            android:id="@+id/spinnerContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorTextSecondary"
+            android:layout_gravity="center">
+
+            <Spinner
+                android:id="@+id/prioritySpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:entries="@array/priority_levels"
+                android:prompt="@string/priority_prompt"
+                />
+
+        </RelativeLayout>
+
+        <!-- RecyclerView para mostrar la lista de tareas -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/btnAddTask"
-            android:layout_marginTop="18dp"
-            android:padding="16dp" />
-    </RelativeLayout>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
 
 </FrameLayout>

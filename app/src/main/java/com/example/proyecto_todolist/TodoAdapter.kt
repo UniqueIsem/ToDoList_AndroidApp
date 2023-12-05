@@ -33,13 +33,17 @@ class TodoAdapter(
         return selectedTasks.toSet() //Cambio de string a set y to string a toSet
     }
 
-
     fun toggleSelection(task: String) {
         if (selectedTasks.contains(task)) {
             selectedTasks.remove(task)
         } else {
             selectedTasks.add(task)
         }
+    }
+
+    fun updateTasks(newTasks: List<String>) {
+        tasks = newTasks
+        notifyDataSetChanged()
     }
 
     class TodoViewHolder(
@@ -53,6 +57,7 @@ class TodoAdapter(
         fun bind(task: String, itemListener: OnItemClickListener){
             checkBox.isChecked = adapter.selectedTasks.contains(task)
             textView.text = task
+            setImportanceBackground(task)
 
             itemView.setOnClickListener {
                 itemListener.onItemclick(task, absoluteAdapterPosition)
@@ -61,6 +66,28 @@ class TodoAdapter(
             checkBox.setOnCheckedChangeListener { _, isChecked ->
                 Log.i("fdsaf",task)
                 adapter.toggleSelection(task)
+            }
+        }
+
+        private fun setImportanceBackground(task: String) {
+            val importance = getImportance(task)
+            when (importance) {
+                "High" -> itemView.setBackgroundResource(R.color.red)
+                "Medium" -> itemView.setBackgroundResource(R.color.yellow)
+                "Low" -> itemView.setBackgroundResource(R.color.green)
+                else -> itemView.setBackgroundResource(R.color.black)
+            }
+        }
+
+        private fun getImportance(task: String): String {
+            if (task.contains("High")) {
+                return "High"
+            } else if (task.contains("Medium")) {
+                return "Medium"
+            } else if (task.contains("Low")) {
+                return "Low"
+            } else {
+                return "Unknown"
             }
         }
 
@@ -73,7 +100,6 @@ class TodoAdapter(
             }
             return selectedTasksList
         }
-
 
     }
 

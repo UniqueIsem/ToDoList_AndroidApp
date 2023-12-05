@@ -13,6 +13,9 @@
 
     <!-- Colores de fondo -->
     <color name="colorBackground">#FFFFFF</color>
+    <color name="green">#27df49</color>
+    <color name="yellow">#e0d124</color>
+    <color name="red">#c70420</color>
 
     <!-- Otros colores -->
     <color name="colorDivider">#B6B6B6</color>
